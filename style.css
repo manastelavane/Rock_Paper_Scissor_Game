@@ -83,7 +83,7 @@ form{
   font-size: 50px;
 }
 
-#hands,
+.hands,
 .options {
   display: flex;
   justify-content: space-around;
