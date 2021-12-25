@@ -55,13 +55,13 @@
   }
   
   .intro h1 {
-    font-size: 1.938rem;
+    font-size: 1.6rem;
     font-weight: 900;
   }
   .intro button,
   .match button {
-    width: 4.688rem;
-    height: 1.563rem;
+    width: 4.988rem;
+    height: 1.663rem;
     background: none;
     border: none;
     color: rgb(224, 224, 224);
