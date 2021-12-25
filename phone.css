@@ -86,13 +86,13 @@
     font-weight: 900;
   }
   
-  #hands,
+  .hands,
   .options {
     display: flex;
     justify-content: space-around;
     align-items: center;
   }
-  #hands img{
+  .hands img{
       height: 25vh;
       width: 50vw;
   }
