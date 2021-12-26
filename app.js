@@ -1,17 +1,23 @@
+// const confetti=require('./confetti');
+let namep="";
+let pScore=0;
+let cScore=0;
+let flag=1;
 const game = () => {
-  let pScore = 0;
-  let cScore = 0;
-  
+  pScore = 0;
+  cScore = 0;
   //Start the Game
   const startGame = () => {
     const playBtn = document.querySelector(".intro button");
     const introScreen = document.querySelector(".intro");
     const match = document.querySelector(".match");
-
     playBtn.addEventListener("click", () => {
       introScreen.classList.add("fadeOut");
       namep=document.getElementById('namep').value;
       namep=namep.charAt(0).toUpperCase()+namep.slice(1);
+      if(namep==""){
+        namep="Player";
+      }
       document.getElementById('changep').innerHTML=namep;
       match.classList.add("fadeIn");
     });
@@ -51,12 +57,54 @@ const game = () => {
       });
     });
   };
-
+  
   const updateScore = () => {
     const playerScore = document.querySelector(".player-score p");
     const computerScore = document.querySelector(".computer-score p");
     playerScore.textContent = pScore;
     computerScore.textContent = cScore;
+    if(pScore==4 || cScore==4){
+      const match = document.querySelector(".match");
+      const congrats = document.querySelector(".congrats");
+      const score = document.querySelector(".score");
+      if(pScore==4){
+        document.getElementsByClassName("congo1")[0].textContent="Congratulations!!";
+        document.getElementsByClassName("congo2")[0].textContent="You Won.";
+      }else{
+        document.getElementsByClassName("congo1")[0].textContent="Better Luck Next Time!";
+        document.getElementsByClassName("congo2")[0].textContent="You Loss.";
+      }
+      match.classList.remove("fadeIn");
+      congrats.classList.add("fadeIn");
+      score.classList.add("fadeOut");
+      const startc=()=>{
+        setTimeout(function(){
+            confetti.start();
+        },100);
+      };
+      startc();
+      const restart = document.querySelector(".restart");
+      restart.addEventListener("click", () => {
+        const match = document.querySelector(".match");
+        const congrats = document.querySelector(".congrats");
+        const score = document.querySelector(".score");
+        const winner = document.querySelector(".winner");
+        function stopc(){
+          confetti.stop();
+        }
+        congrats.classList.remove("fadeIn");
+        match.classList.add("fadeIn");
+        score.classList.remove("fadeOut");
+        playerScore.textContent = 0;
+        computerScore.textContent = 0;
+        pScore=0;
+        cScore=0;
+        flag=0;
+        winner.textContent="Choose an option";
+        stopc();
+        
+      });
+    }
   };
 
   const compareHands = (playerChoice, computerChoice) => {
@@ -70,7 +118,7 @@ const game = () => {
     //Check for Rock
     if (playerChoice === "rock") {
       if (computerChoice === "scissors") {
-        winner.textContent = "Player Wins";
+        winner.textContent = namep+" Wins";
         pScore++;
         updateScore();
         return;
@@ -89,7 +137,7 @@ const game = () => {
         updateScore();
         return;
       } else {
-        winner.textContent = "Player Wins";
+        winner.textContent = namep+" Wins";;
         pScore++;
         updateScore();
         return;
@@ -103,7 +151,7 @@ const game = () => {
         updateScore();
         return;
       } else {
-        winner.textContent = "Player Wins";
+        winner.textContent = namep+" Wins";;
         pScore++;
         updateScore();
         return;
@@ -112,7 +160,9 @@ const game = () => {
   };
 
   //Is call all the inner function
-  startGame();
+  if(flag==1){
+    startGame();
+  }
   playMatch();
 };
 
